@@ -78,7 +78,7 @@ namespace OilGas.LeakDetector
             EventHubClient eventHubClient = EventHubClient.CreateFromConnectionString(eventHubConnectionString, eventHubName);
 
             // Get the default Consumer Group
-            EventHubConsumerGroup defaultConsumerGroup = eventHubClient.GetDefaultConsumerGroup();
+            EventHubConsumerGroup defaultConsumerGroup = eventHubClient.GetDefaultConsumerGroup();//31bf3856ad364e35
             EventProcessorHost eventProcessorHost = new EventProcessorHost("singleworker", eventHubClient.Path, defaultConsumerGroup.GroupName, eventHubConnectionString, storageConnString);
             //this specifies the implementation of IEventProcessor
             eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>().Wait();

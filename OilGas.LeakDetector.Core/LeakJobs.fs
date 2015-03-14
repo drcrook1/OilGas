@@ -1,12 +1,11 @@
 ﻿namespace OilGas.LeakDetector.Core
 
 open Core
-open System.Threading
 open FSharp.Collections.ParallelSeq
-open Microsoft.ServiceBus.Messaging
-open EventReceiver
 open OilGas.TelemetryCore
-open MathNet.Numerics
+open MBrace.Azure.Client
+open MBrace
+open MBrace.Azure
 //Volume flow rate (Q) = volume of fluid flowing past a section per unit time (m3/s)   
 //Weight flow rate (W) = weight of fluid flowing past a section per unit time   
 //Mass of flow rate (M) = mass of fluid flowing past a section per unit time    
@@ -66,5 +65,18 @@ module LeakJobs =
                     then {region = key; warningLevel = High; events = events}
                     else {region = key; warningLevel = High; events = events} )
     let scheduleLeakJob(events:PipeFlowTelemetryEvent seq) =
-        events |> detectLeak
-        
+        let myStorageConnectionString = @"DefaultEndpointsProtocol=https;AccountName=mbrace1;AccountKey=Y0D1nOKiaMlrG8WtmljCc3G5tfK9W7jxfPjE2uP6xPMqiZcg+zjsNSlTD2KNF2171fwI7qKVc2LEKGx3wie/pg=="
+        let myServiceBusConnectionString = @"Endpoint=sb://brisk-eus1026cf389a95.servicebus.windows.net/;SharedAccessKeyName=master;SharedAccessKey=tYwyr4c53moHm4RAaKGcMAFGnZOK9uYKyhAbIubcHqU="
+        let config =
+            { Configuration.Default with
+                StorageConnectionString = myStorageConnectionString
+                ServiceBusConnectionString = myServiceBusConnectionString }
+        // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
+        // Before running, edit credentials.fsx to enter your connection strings.
+        let cluster = Runtime.GetHandle(config)
+        // We can connect to the cluster and get details of the workers in the pool etc.
+        cluster.ShowWorkers()
+        // We can view the history of processes
+        cluster.ShowProcesses()
+        //events |> detectLeak
+        ()

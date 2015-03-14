@@ -52,9 +52,9 @@ namespace OilGas.LeakDetector
                 SimpleEventProcessor.flowEvents.Add(JsonConvert.DeserializeObject<PipeFlowTelemetryEvent>(s));
                 Console.WriteLine(s);
             }
-            if(flowEvents.Count > 100)
+            if(flowEvents.Count > 5)
             {
-                //var warnings = LeakJobs.scheduleLeakJob(flowEvents);
+                LeakJobs.scheduleLeakJob(flowEvents);
                 flowEvents.Clear();
                 await context.CheckpointAsync();
             }

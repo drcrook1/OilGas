@@ -28,24 +28,8 @@ namespace OilGas.EventHubProvider
             ServiceBusConnectionStringBuilder builder = new ServiceBusConnectionStringBuilder(connectionString);
             builder.TransportType = TransportType.Amqp;
             NamespaceManager manager = NamespaceManager.CreateFromConnectionString(builder.ToString());
-            //JP - Changed this to create if not exist
             this.EHDescription = manager.CreateEventHubIfNotExists(description);
             this.EHClient = EventHubClient.CreateFromConnectionString(connectionString, EHDescription.Path); 
-
-            //if (EHSender == null)
-            //{
-            //    EHSender = this.EHClient.CreatePartitionedSender("0");
-            //}
-            
-            //if (EHReceiver == null)
-            //{
-            //    //create a receiver too
-            //    EventHubConsumerGroup group = EHClient.GetDefaultConsumerGroup();
-            //    //we are defaulting to partition 0.  
-            //    //Partitions are used for scale.  Each one can be thought of as a seperate lane 
-            //    //for messages to go through.  As this is a demo, we are doing only parititon 0.
-            //    EHReceiver = group.CreateReceiver(EHClient.GetRuntimeInformation().PartitionIds[0]);
-            //}
         }
 
         //public string ReceiveMessage()

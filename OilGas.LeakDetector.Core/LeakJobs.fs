@@ -63,20 +63,20 @@ module LeakJobs =
                     let totalFlow = events |> Seq.fold(fun acc e -> acc + e.massFlow) 0.0f
                     if (totalFlow / ((events |> Seq.length) |> float32) > warningThreshold)
                     then {region = key; warningLevel = High; events = events}
-                    else {region = key; warningLevel = High; events = events} )
+                    else {region = key; warningLevel = Low; events = events} )
     let scheduleLeakJob(events:PipeFlowTelemetryEvent seq) =
         let myStorageConnectionString = @"DefaultEndpointsProtocol=https;AccountName=mbrace1;AccountKey=Y0D1nOKiaMlrG8WtmljCc3G5tfK9W7jxfPjE2uP6xPMqiZcg+zjsNSlTD2KNF2171fwI7qKVc2LEKGx3wie/pg=="
         let myServiceBusConnectionString = @"Endpoint=sb://brisk-eus1026cf389a95.servicebus.windows.net/;SharedAccessKeyName=master;SharedAccessKey=tYwyr4c53moHm4RAaKGcMAFGnZOK9uYKyhAbIubcHqU="
-//        let config =
-//            { Configuration.Default with
-//                StorageConnectionString = myStorageConnectionString
-//                ServiceBusConnectionString = myServiceBusConnectionString }
-//        // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
-//        // Before running, edit credentials.fsx to enter your connection strings.
-//        let cluster = Runtime.GetHandle(config)
-//        // We can connect to the cluster and get details of the workers in the pool etc.
-//        cluster.ShowWorkers()
-//        // We can view the history of processes
-//        cluster.ShowProcesses()
-//        //events |> detectLeak
+        let config =
+            { Configuration.Default with
+                StorageConnectionString = myStorageConnectionString
+                ServiceBusConnectionString = myServiceBusConnectionString }
+        // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
+        // Before running, edit credentials.fsx to enter your connection strings.
+        let cluster = Runtime.GetHandle(config)
+        // We can connect to the cluster and get details of the workers in the pool etc.
+        cluster.ShowWorkers()
+        // We can view the history of processes
+        cluster.ShowProcesses()
+        //events |> detectLeak
         ()

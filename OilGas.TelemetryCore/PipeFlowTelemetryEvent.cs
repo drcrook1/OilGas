@@ -2,6 +2,7 @@
 
 namespace OilGas.TelemetryCore
 {
+    [Serializable]
     public class PipeFlowTelemetryEvent : ITelemetryMessage
     {
         public string ID { get; set; }

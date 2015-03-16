@@ -1,4 +1,10 @@
-﻿namespace OilGas.LeakDetector.Core
+﻿//I did one experiment along those lines. 
+//1. Add an F# project to your C# solution. 
+//2. Add MBrace.Azure (NOT MBrace.Azure.Client) as a nuget package for the F# project  
+//3.   package your F# cluster-scripting code as a function or class+method  
+//4. Call it from C#
+
+namespace OilGas.LeakDetector.Core
 
 open Core
 open FSharp.Collections.ParallelSeq
@@ -65,8 +71,8 @@ module LeakJobs =
                     then {region = key; warningLevel = High; events = events}
                     else {region = key; warningLevel = Low; events = events} )
     let scheduleLeakJob(events:PipeFlowTelemetryEvent seq) =
-        let myStorageConnectionString = @"DefaultEndpointsProtocol=https;AccountName=mbrace1;AccountKey=Y0D1nOKiaMlrG8WtmljCc3G5tfK9W7jxfPjE2uP6xPMqiZcg+zjsNSlTD2KNF2171fwI7qKVc2LEKGx3wie/pg=="
-        let myServiceBusConnectionString = @"Endpoint=sb://brisk-eus1026cf389a95.servicebus.windows.net/;SharedAccessKeyName=master;SharedAccessKey=tYwyr4c53moHm4RAaKGcMAFGnZOK9uYKyhAbIubcHqU="
+        let myStorageConnectionString = @"DefaultEndpointsProtocol=https;AccountName=mbrace4;AccountKey=nP2h4ueh1JF1wRrHzoJ2Ds6r4WiuvgRuOPu2FBHM65VD4bHtztYcPvQ40edTNxS6C9KzzVYtLgqG3PhpbJIzTQ=="
+        let myServiceBusConnectionString = @"Endpoint=sb://mbrace4.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=p+VjuNip6WjnEwM2lFag8K/JwME0ipj4TNr0fNNxqac="
         let config =
             { Configuration.Default with
                 StorageConnectionString = myStorageConnectionString

@@ -1,8 +1,20 @@
 ﻿namespace OilGas.LeakDetector.Core
+open System
 
 module Core = 
 
+
     type vector2 = {x:float32;y:float32}
+
+//        public string ID { get; set; }
+//        public int SensorID { get; set; }
+//        public float Flow { get; set; }
+//        public DateTime CollectionTime { get; set; }
+//        public float Longitude { get; set; }
+//        public float Latitude { get; set; }
+
+    type sPipeFlowTelemetryEvent = 
+        {id:string; sensorId:int; flow:float32; collectionTime:DateTime; longitude:float32; latitude:float32}
 
     type FailureMessage =
         | SettingDoesNotExist
@@ -78,7 +90,7 @@ module Core =
     /// infix operator of LiftR
     let (<!>) = liftR
 
-        ///given a result and a result
+    ///given a result and a result
     ///combine into a list of failures
     ///or a single success of the first's value
     let combineRR r1 r2=

@@ -17,6 +17,8 @@ namespace OilGas.LeakDetector
     {
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
+        public static int InstanceRoleCount;
+        public List<int> listenerPartitions;
 
         public override void Run()
         {
@@ -34,12 +36,17 @@ namespace OilGas.LeakDetector
 
         public override bool OnStart()
         {
+            WorkerRole.MagicVolumeSauce();
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
-
-            // For information on handling configuration changes
-            // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-
+            //hook up our listener for if we need our magic volume sauce.
+            RoleEnvironment.Changed += (sender, args) =>
+                {
+                    if(WorkerRole.InstanceRoleCount != RoleEnvironment.CurrentRoleInstance.Role.Instances.Count)
+                    {
+                        WorkerRole.MagicVolumeSauce();
+                    }
+                };
             bool result = base.OnStart();
 
             Trace.TraceInformation("OilGas.LeakDetector has been started");
@@ -58,16 +65,11 @@ namespace OilGas.LeakDetector
 
             Trace.TraceInformation("OilGas.LeakDetector has stopped");
         }
-
-        private async Task RunAsync(CancellationToken cancellationToken)
+        
+        public static void MagicVolumeSauce()
         {
-            // TODO: Replace the following with your own logic.
-            //while (!cancellationToken.IsCancellationRequested)
-            //{
-            //    Trace.TraceInformation("Working");
-            //    await Task.Delay(1000);
-            //}
-            //await LeakDetectorCore.Run();
+            WorkerRole.InstanceRoleCount = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+            var thisInstance = RoleEnvironment.CurrentRoleInstance.Id;
         }
     }
 }

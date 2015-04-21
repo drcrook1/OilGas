@@ -60,6 +60,7 @@ module LeakJobs =
                 |> Seq.map(fun region -> region.label)
                 |> Seq.head
         {event = event; region = regions; massFlow = calculateMassFlow(event)}
+
     let detectLeak(events:PipeFlowTelemetryEvent seq) =
         events 
         |> PSeq.map(fun event -> event |> mapToRegionalEvent)
@@ -70,19 +71,23 @@ module LeakJobs =
                     if (totalFlow / ((events |> Seq.length) |> float32) > warningThreshold)
                     then {region = key; warningLevel = High; events = events}
                     else {region = key; warningLevel = Low; events = events} )
+
     let scheduleLeakJob(events:PipeFlowTelemetryEvent seq) =
-        let myStorageConnectionString = @"DefaultEndpointsProtocol=https;AccountName=mbrace4;AccountKey=nP2h4ueh1JF1wRrHzoJ2Ds6r4WiuvgRuOPu2FBHM65VD4bHtztYcPvQ40edTNxS6C9KzzVYtLgqG3PhpbJIzTQ=="
-        let myServiceBusConnectionString = @"Endpoint=sb://mbrace4.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=p+VjuNip6WjnEwM2lFag8K/JwME0ipj4TNr0fNNxqac="
-        let config =
-            { Configuration.Default with
-                StorageConnectionString = myStorageConnectionString
-                ServiceBusConnectionString = myServiceBusConnectionString }
-        // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
-        // Before running, edit credentials.fsx to enter your connection strings.
-        let cluster = Runtime.GetHandle(config)
-        // We can connect to the cluster and get details of the workers in the pool etc.
-        cluster.ShowWorkers()
-        // We can view the history of processes
-        cluster.ShowProcesses()
-        //events |> detectLeak
-        ()
+        events |> detectLeak
+//        let myStorageConnectionString = @"DefaultEndpointsProtocol=https;AccountName=mbrace4;AccountKey=nP2h4ueh1JF1wRrHzoJ2Ds6r4WiuvgRuOPu2FBHM65VD4bHtztYcPvQ40edTNxS6C9KzzVYtLgqG3PhpbJIzTQ=="
+//        let myServiceBusConnectionString = @"Endpoint=sb://mbrace4.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=p+VjuNip6WjnEwM2lFag8K/JwME0ipj4TNr0fNNxqac="
+//        let config =
+//            { Configuration.Default with
+//                StorageConnectionString = myStorageConnectionString
+//                ServiceBusConnectionString = myServiceBusConnectionString }
+//        // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
+//        // Before running, edit credentials.fsx to enter your connection strings.
+//        let cluster = Runtime.GetHandle(config)
+//        // We can connect to the cluster and get details of the workers in the pool etc.
+//        cluster.ShowWorkers()
+//        // We can view the history of processes
+//        cluster.ShowProcesses()
+//        let workflow = cloud { return events |> detectLeak }
+//        let job = workflow |> cluster.CreateProcess
+//        let results = job.AwaitResult()
+//        results

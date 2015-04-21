@@ -35,9 +35,9 @@ module DataGenerator =
 
     let createProvider() =
         let config = CreateEHConfiguration
-                            <!> succeed @"https://rtoieventhub-ns.servicebus.windows.net"
-                            <*> succeed @"Endpoint=sb://rtoieventhub-ns.servicebus.windows.net/;SharedAccessKeyName=master;SharedAccessKey=iAZa4YpxH4IeEatOC1MpImgVLby45NGZq+6TRcqrRAU="
-                            <*> succeed @"oilgasmockinput"
+                            <!> succeed @"https://pipedreamsdemo-ns.servicebus.windows.net/pipedreamsdemo"
+                            <*> succeed @"Endpoint=sb://pipedreamsdemo-ns.servicebus.windows.net/;SharedAccessKeyName=Master;SharedAccessKey=Rhe/K0/BZDVf9dNnxNBqNrQqQlE34b1t8G60x3zzzCQ="
+                            <*> succeed @"pipedreamsdemo"
         match config with
         | Failure f -> Failure f
         | Success s -> 

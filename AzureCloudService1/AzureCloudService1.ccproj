@@ -5,13 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>2.5</ProductVersion>
-    <ProjectGuid>e343a6f6-8216-4cf4-bb68-caf496b4c425</ProjectGuid>
+    <ProjectGuid>03d3b031-b4a6-4402-856f-594130f658fa</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OilGas.LeakDetector.CloudService</RootNamespace>
-    <AssemblyName>OilGas.LeakDetector.CloudService</AssemblyName>
+    <RootNamespace>AzureCloudService1</RootNamespace>
+    <AssemblyName>AzureCloudService1</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
-    <Name>OilGas.LeakDetector.CloudService</Name>
+    <Name>AzureCloudService1</Name>
+    <UseWebProjectPorts>False</UseWebProjectPorts>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,24 +38,20 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OilGas.LeakDetector\OilGas.LeakDetector.csproj">
-      <Name>OilGas.LeakDetector</Name>
-      <Project>{847f62aa-0f50-44c2-a1e2-b9a20b13cd2c}</Project>
+    <ProjectReference Include="..\WorkerRole1\WorkerRole1.csproj">
+      <Name>WorkerRole1</Name>
+      <Project>{e2e13042-191d-40ff-8a1c-76eb8e164b2d}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>OilGas.LeakDetector</RoleName>
+      <RoleName>WorkerRole1</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="OilGas.LeakDetectorContent\" />
-    <Folder Include="Profiles" />
+    <Folder Include="WorkerRole1Content\" />
   </ItemGroup>
   <ItemGroup>
-    <DiagnosticsConfiguration Include="OilGas.LeakDetectorContent\diagnostics.wadcfgx" />
-  </ItemGroup>
-  <ItemGroup>
-    <PublishProfile Include="Profiles\testVolumeSauceProduction.azurePubxml" />
+    <DiagnosticsConfiguration Include="WorkerRole1Content\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

@@ -28,7 +28,7 @@ namespace OilGas.EventReceiverApp
 
             string eventProcessorHostName = Guid.NewGuid().ToString();
             EventProcessorHost eventProcessorHost = new EventProcessorHost(eventProcessorHostName, eventHubName, EventHubConsumerGroup.DefaultGroupName, eventHubConnectionString, storageConnectionString);
-            eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>().Wait();
+           // eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>().Wait();
 
             //Console.WriteLine("Receiving. Press enter key to stop worker.");
             while(true)

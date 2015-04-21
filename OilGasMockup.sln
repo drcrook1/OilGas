@@ -28,6 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B9C6E9
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "AzureCloudService1", "AzureCloudService1\AzureCloudService1.ccproj", "{03D3B031-B4A6-4402-856F-594130F658FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerRole1", "WorkerRole1\WorkerRole1.csproj", "{E2E13042-191D-40FF-8A1C-76EB8E164B2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +78,14 @@ Global
 		{E9924098-8A98-4F5D-8E70-51972F897081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9924098-8A98-4F5D-8E70-51972F897081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9924098-8A98-4F5D-8E70-51972F897081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D3B031-B4A6-4402-856F-594130F658FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D3B031-B4A6-4402-856F-594130F658FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D3B031-B4A6-4402-856F-594130F658FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D3B031-B4A6-4402-856F-594130F658FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2E13042-191D-40FF-8A1C-76EB8E164B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2E13042-191D-40FF-8A1C-76EB8E164B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2E13042-191D-40FF-8A1C-76EB8E164B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2E13042-191D-40FF-8A1C-76EB8E164B2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
